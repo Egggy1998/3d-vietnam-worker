@@ -1,11 +1,12 @@
-name = "3d-vietnam-worker"
+name = "hq-design-worker"
 main = "index.ts"
 compatibility_date = "2024-01-01"
 
 [vars]
-N8N_WEBHOOK_URL = "https://jqqpar.ezn8n.com"
-N8N_WEBHOOK_ID = "c662501d-1d03-48c3-9bc2-4ad0e8e2b2a2"
-BASEROW_TABLE_ID = "916632"
+N8N_WEBHOOK_URL = "YOUR_N8N_INSTANCE_URL"
+N8N_WEBHOOK_ID = "YOUR_WEBHOOK_ID"
+BASEROW_TABLE_ID = "YOUR_TABLE_ID"
 
-# Secrets - set via: wrangler secret put BASEROW_TOKEN
+# Secrets - set via Cloudflare Dashboard or wrangler:
 # wrangler secret put BASEROW_TOKEN
+# wrangler secret put N8N_WEBHOOK_URL
