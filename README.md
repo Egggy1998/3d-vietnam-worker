@@ -1,51 +1,49 @@
-# 3D Vietnam Cloudflare Worker
+# HQ Design Cloudflare Worker
 
-Webhook relay worker cho hệ thống marketing 3D Vietnam.
+Webhook relay worker cho hệ thống marketing.
 
 ## 🌐 Giới thiệu
 
 Worker nhận request từ OpenClaw và forward đến n8n webhook, đảm bảo 100% uptime.
 
-## 🚀 Deploy
+## 🚀 Deploy từ GitHub
 
-### 1. Cài Wrangler CLI
+### Cách 1: Cloudflare Dashboard (khuyến nghị)
+
+1. Vào https://dash.cloudflare.com → Workers & Pages
+2. "Create a Worker" → "Deploy from GitHub"
+3. Connect repo: `Egggy1998/hq-design-worker`
+4. Done!
+
+### Cách 2: Wrangler CLI
 
 ```bash
 npm install -g wrangler
 wrangler login
-```
-
-### 2. Deploy
-
-```bash
+git clone https://github.com/Egggy1998/hq-design-worker.git
+cd hq-design-worker
 wrangler deploy
 ```
 
-### 3. Set Environment Variables
+## 🔧 Cấu hình Environment Variables
 
-Trên Cloudflare Dashboard:
-1. Workers & Pages → `3d-vietnam-worker`
-2. Settings → Variables
-3. Add:
+Trên Cloudflare Dashboard → Workers & Pages → `hq-design-worker` → Settings → Variables:
 
 | Variable | Value |
 |----------|-------|
-| `N8N_WEBHOOK_URL` | `https://jqqpar.ezn8n.com` |
-| `N8N_WEBHOOK_ID` | `c662501d-1d03-48c3-9bc2-4ad0e8e2b2a2` |
-| `BASEROW_TABLE_ID` | `916632` |
+| `N8N_WEBHOOK_URL` | URL instance n8n của bạn |
+| `N8N_WEBHOOK_ID` | Webhook ID từ n8n |
+| `BASEROW_TABLE_ID` | Table ID từ Baserow |
 
-### 4. Set Secret
+## 🔐 Set Secrets
 
 ```bash
+# Set Baserow token
 wrangler secret put BASEROW_TOKEN
-# Nhập: k3h0ecJo2awlsDTc2cctP1H5EhNMs4yo
-```
+# Nhập token của bạn
 
-### 5. Lấy URL
-
-```bash
-wrangler subdomain
-# Kết quả: https://3d-vietnam-worker.YOUR_SUBDOMAIN.workers.dev
+# Set n8n URL (nếu cần)
+wrangler secret put N8N_WEBHOOK_URL
 ```
 
 ## 📡 API
@@ -63,12 +61,13 @@ Content-Type: application/json
 }
 ```
 
-## 🔧 Tuỳ chỉnh
+## 📁 Cấu trúc
 
-Chỉnh sửa `wrangler.toml` để đổi subdomain:
-
-```toml
-name = "your-worker-name"
+```
+hq-design-worker/
+├── index.ts        # Worker code
+├── wrangler.toml   # Config
+└── README.md
 ```
 
 ## 📚 Tham khảo
